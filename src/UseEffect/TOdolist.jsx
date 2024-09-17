@@ -3,15 +3,19 @@ import React, { useState } from "react";
 const TOdolist = () => {
   const [inputValue, setInputvalue] = useState("");
 
-  // const list = localStorage.getItem("list");
-
-  console.log(list);
-
-  const [final, setFinal] = useState([]);
+  const storage = JSON.parse(localStorage.getItem("list")) || [];
+  // local storage vako data lai linxa
+  const [final, setFinal] = useState(storage);
+  // storage pass garesi data refresh garda ni rahanxa
 
   const handleSubmit = () => {
-    const data = final.concat(inputValue);
-    setFinal(data);
+    // trim unwanted space lai hatauxa
+    if (inputValue.trim() !== "") {
+      const finalArray = [...final, inputValue];
+      setFinal(finalArray);
+      localStorage.setItem("list", JSON.stringify(finalArray));
+      setInputvalue("");
+    }
   };
 
   const handleInputChange = (e) => {
@@ -23,6 +27,7 @@ const TOdolist = () => {
       <div className="flex gap-2 bg-green-500">
         <input
           type="text"
+         
           placeholder="Enter items"
           value={inputValue}
           onChange={handleInputChange}

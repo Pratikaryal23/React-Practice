@@ -14,7 +14,7 @@ const Hello = () => {
 
   useEffect(() => {
     console.log("i am use effect");
-  }, []);
+  }, [random]);
   //array dependency=[]
   return (
     <>
